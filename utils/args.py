@@ -16,6 +16,7 @@ def get_args():
     parser.add_argument("--datafile_name", type=str)
     parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--output_dir", type=str)
+    parser.add_argument("--gen_data", type=str, default=None, help="use if data is generated dialog from neuralpc")
 
     # prefix hyperparams
     parser.add_argument("--mid_dim", type=int, default=512)
@@ -43,10 +44,12 @@ def get_args():
     # sampling hyperparams
     parser.add_argument("--num_generate", type=int, default=1)
     parser.add_argument("--max_sent_len", type=int, default=64)
+    parser.add_argument("--min_sent_len", type=int, default=3)
     parser.add_argument("--regenerate_try", type=int, default=5)
     parser.add_argument('--temperature', type=float, default=1.0)
-    parser.add_argument('--top_k', type=int, default=10)
-    parser.add_argument('--top_p', type=float, default=0.9)
+    parser.add_argument('--top_k', type=int, default=0)
+    parser.add_argument('--top_p', type=float, default=0)
+    parser.add_argument('--no_sample', type=bool, default=False)
 
     args = parser.parse_args()
     args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
